@@ -42,7 +42,16 @@ def get_tasks3():
     #key   = request.json.get('key')
     #value = func1(request.json.get('value'),3)
     #return jsonify({key: value})
-	return jsonify(request.json)
+	#return jsonify(request.json)
+	outText = "Hello There"
+    output = {
+                    "speech": outText,
+                    "displayText": outText,
+                    # "data": data,
+                    # "contextOut": [],
+                    "source": "Dhaval"
+                }
+    return jsonify(output)
 
 if __name__ == '__main__':
     app.run(debug=True)
