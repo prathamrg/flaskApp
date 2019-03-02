@@ -39,9 +39,10 @@ def get_tasks2():
 
 @app.route('/api3', methods=['POST'])
 def get_tasks3():
-    key   = request.json.get('key')
-    value = func1(request.json.get('value'),3)
-    return jsonify({key: value})
+    #key   = request.json.get('key')
+    #value = func1(request.json.get('value'),3)
+    #return jsonify({key: value})
+	return jsonify(request.json)
 
 if __name__ == '__main__':
     app.run(debug=True)
