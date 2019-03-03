@@ -10,5 +10,6 @@ class Response():
     def makeResponse(text):
         return {
                 "fulfillmentText"     : text,
-                "fulfillmentMessages" : [text]
+                "fulfillmentMessages" : [{"text": {"text":[text]}}]
+                
             }
