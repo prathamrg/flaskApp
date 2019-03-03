@@ -49,23 +49,30 @@ def get_tasks3():
 #                    # "contextOut": [],
 #                    "source": "Dhaval"
 #                }
+
     
-    
-    output =            {
-              "payload": {
-                "google": {
-                  "expectUserResponse": False,
-                  "richResponse": {
-                    "items": [
-                      {
-                        "simpleResponse": {
-                          "textToSpeech": "Hello There"
-                        }
-                      }
-                    ]
-                  }
-                }
-              }
+#    output =            {
+#              "payload": {
+#                "google": {
+#                  "expectUserResponse": False,
+#                  "richResponse": {
+#                    "items": [
+#                      {
+#                        "simpleResponse": {
+#                          "textToSpeech": "Hello There"
+#                        }
+#                      }
+#                    ]
+#                  }
+#                }
+#              }
+#            }
+
+    output = {
+                "fulfillmentText"     : "Hello There. API Call Successful",
+                "fulfillmentMessages" : [{"text": {"text":"Hello There. API Call Successful"}}]
+            
+            
             }
     return jsonify(output)
 
