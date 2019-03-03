@@ -68,7 +68,7 @@ def get_tasks3():
 #              }
 #            }
     req = request.get_json(silent=True, force=True)
-    input = req.get("body").get("queryInput").get("text")
+    input = req.get("queryResult").get("queryText")
     output = {
                 "fulfillmentText"     : "Hello There. API Call Successful using {} webhook".format(input),
                 "fulfillmentMessages" : [{"text": {"text":["Hello There. API Call Successful"]}}]
