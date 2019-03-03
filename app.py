@@ -67,9 +67,9 @@ def get_tasks3():
 #                }
 #              }
 #            }
-
+    input = request.body.queryResult.queryText
     output = {
-                "fulfillmentText"     : "Hello There. API Call Successful",
+                "fulfillmentText"     : "Hello There. API Call Successful using {} webhook".format(input),
                 "fulfillmentMessages" : [{"text": {"text":["Hello There. API Call Successful"]}}]
             
             
