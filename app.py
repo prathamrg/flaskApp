@@ -70,7 +70,7 @@ def get_tasks3():
 
     output = {
                 "fulfillmentText"     : "Hello There. API Call Successful",
-                "fulfillmentMessages" : [{"text": {"text":"Hello There. API Call Successful"}}]
+                "fulfillmentMessages" : [{"text": {"text":["Hello There. API Call Successful"]}}]
             
             
             }
