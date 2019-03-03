@@ -39,18 +39,34 @@ def get_tasks2():
 
 @app.route('/api3', methods=['POST'])
 def get_tasks3():
-    #key   = request.json.get('key')
-    #value = func1(request.json.get('value'),3)
-    #return jsonify({key: value})
-	#return jsonify(request.json
-    outText = "Hello There"
-    output = {
-                    "speech": outText,
-                    "displayText": outText,
-                    # "data": data,
-                    # "contextOut": [],
-                    "source": "Dhaval"
+
+    
+#    outText = "Hello There"
+#    output = {
+#                    "speech": outText,
+#                    "displayText": outText,
+#                    # "data": data,
+#                    # "contextOut": [],
+#                    "source": "Dhaval"
+#                }
+    
+    
+    output =            {
+              "payload": {
+                "google": {
+                  "expectUserResponse": False,
+                  "richResponse": {
+                    "items": [
+                      {
+                        "simpleResponse": {
+                          "textToSpeech": "Hello There"
+                        }
+                      }
+                    ]
+                  }
                 }
+              }
+            }
     return jsonify(output)
 
 if __name__ == '__main__':
