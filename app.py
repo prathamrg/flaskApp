@@ -8,6 +8,9 @@ Created on Thu Feb 21 19:25:43 2019
 #!flask/bin/python
 from flask import Flask, jsonify 
 from flask import request
+from utils.helper import *
+
+
 
 app = Flask(__name__)
 
@@ -35,46 +38,19 @@ def get_tasks():
 
 @app.route('/api2', methods=['GET'])
 def get_tasks2():
-    return jsonify({'tasks': tasks[0]})
+    return jsonify(Response.makeResponse("api2 caled"))
 
 @app.route('/api3', methods=['POST'])
 def get_tasks3():
 
-    
-#    outText = "Hello There"
-#    output = {
-#                    "speech": outText,
-#                    "displayText": outText,
-#                    # "data": data,
-#                    # "contextOut": [],
-#                    "source": "Dhaval"
-#                }
-
-    
-#    output =            {
-#              "payload": {
-#                "google": {
-#                  "expectUserResponse": False,
-#                  "richResponse": {
-#                    "items": [
-#                      {
-#                        "simpleResponse": {
-#                          "textToSpeech": "Hello There"
-#                        }
-#                      }
-#                    ]
-#                  }
-#                }
-#              }
-#            }
     req = request.get_json(silent=True, force=True)
     input = req.get("queryResult").get("queryText")
     output = {
                 "fulfillmentText"     : "Hello There. API Call Successful using {} webhook".format(input),
                 "fulfillmentMessages" : [{"text": {"text":["Hello There. API Call Successful using {} webhook".format(input)]}}]
-            
-            
+      
             }
+    
     return jsonify(output)
 
 if __name__ == '__main__':
