@@ -46,7 +46,7 @@ def get_tasks3():
     req = request.get_json(silent=True, force=True)
     input = req.get("queryResult").get("queryText")
     
-    primarySymptoms = req.get("parameters").get("PrimarySymptom")
+    primarySymptoms = req.get("queryResult").get("parameters").get("PrimarySymptom")
     
     text   = "You have {}".format(primarySymptoms[0])
     output = Response.makeResponse(text)
