@@ -21,7 +21,7 @@ def authenticate():
     req = request.get_json(silent=True, force=True)
     return jsonify(req)
 
-@app.route('/api3', methods=['POST'])
+@app.route('/dialogflow_webhook', methods=['POST'])
 def get_tasks3():
 
     req = request.get_json(silent=True, force=True)
