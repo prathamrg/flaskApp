@@ -22,15 +22,33 @@ def authenticate():
     return jsonify(req)
 
 @app.route('/dialogflow_webhook', methods=['POST'])
-def get_tasks3():
+def processRequest():
 
     req = request.get_json(silent=True, force=True)
-    input = req.get("queryResult").get("queryText")
+    intent = req.get("intent").get("displayName")
+
+    if intent == "PrimarySymptom":
+
+        primarySymptoms = req.get("queryResult").get("parameters").get("PrimarySymptom")
+        response = "Alright. What is the severity of your {}".format(primarySymptoms[0])
     
-    primarySymptoms = req.get("queryResult").get("parameters").get("PrimarySymptom")
-    
-    text   = "You have {}".format(primarySymptoms[0])
-    output = Response.makeResponse(text)
+    elif intent == "SymptomSeverity":
+
+        symptomSeverity = req.get("queryResult").get("parameters").get("SymptomSeverity")
+        response = "How do you feel right now? Tired or Restless?"
+
+    elif intent == "SleepPattern":
+
+        outputContexts = req.get("queryResult").get("outputContexts")
+        for outputContext in outputContexts:
+            if "primarysymptom-followup" in outputContext.get("name"):
+                parameters = outputContext.get("parameters")
+                primarySymptoms = parameters.get("PrimarySymptom")
+                symptomSeverity = parameters.get("SymptomSeverity")
+                sleepPattern    = parameters.get("SleepPattern")
+        response = "You have {0} {1} and are {2}".format(symptomSeverity,primarySymptoms[0],sleepPattern)
+
+    output = Response.makeResponse(response)
     
     return jsonify(output)
 
