@@ -25,7 +25,7 @@ def authenticate():
 def processRequest():
 
     req = request.get_json(silent=True, force=True)
-    intent = req.get("intent").get("displayName")
+    intent = req.get("queryResult").get("intent").get("displayName")
 
     if intent == "PrimarySymptom":
 
