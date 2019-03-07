@@ -30,11 +30,10 @@ def processRequest():
     if intent == "PrimarySymptom":
 
         primarySymptoms = req.get("queryResult").get("parameters").get("PrimarySymptom")
-        response = "Alright. What is the severity of your {}".format(primarySymptoms[0])
+        response = "Alright. What is the severity of your {}?".format(primarySymptoms[0])
     
     elif intent == "SymptomSeverity":
 
-        symptomSeverity = req.get("queryResult").get("parameters").get("SymptomSeverity")
         response = "How do you feel right now? Tired or Restless?"
 
     elif intent == "SleepPattern":
