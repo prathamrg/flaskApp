@@ -10,6 +10,7 @@ from flask import Flask, jsonify
 from flask import request
 from utils.mongodb_connection import mongoDB
 from utils.helper import Response
+import json
 
 
 
@@ -17,8 +18,8 @@ app = Flask(__name__)
 
 @app.route('/fetch_data', methods=['GET'])
 def getData():
-    dict = mongoDB.getData("guidebook","restaurants")
-    return jsonify(dict)
+    dict1 = mongoDB.getData("guidebook","restaurants")
+    return jsonify(address=dict1.get('address'),borough=dict1.get('borough'))
 
 @app.route('/authentication', methods=['POST'])
 def authenticate():
