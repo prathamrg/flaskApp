@@ -10,8 +10,8 @@ class mongoDB():
         db = client[dbname]
         collection = db[collectionname]
 
-        collection.database
+        #collection.database
         dictionary = collection.find_one()
-        print(collection.find_one())
+        #print(collection.find_one())
         client.close()
         return dictionary
