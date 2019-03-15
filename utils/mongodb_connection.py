@@ -3,9 +3,6 @@ import pymongo
 class mongoDB():
 
 
-    def test(self):
-        return 1
-
     def getData(dbname, collectionname):
         #dbname = "guidebook"
         #collectionname = "restaurants"
