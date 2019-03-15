@@ -8,13 +8,17 @@ Created on Thu Feb 21 19:25:43 2019
 #!flask/bin/python
 from flask import Flask, jsonify 
 from flask import request
-from utils.helper import *
+from utils.mongodb_connection import mongoDB
+from utils.helper import Response
 
 
 
 app = Flask(__name__)
 
-
+@app.route('/fetch_data', methods=['GET'])
+def getData():
+    dict = mongoDB.getData("guidebook","restaurants")
+    return jsonify(dict)
 
 @app.route('/authentication', methods=['POST'])
 def authenticate():
