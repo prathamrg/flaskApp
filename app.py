@@ -81,7 +81,7 @@ def processRequest():
                 }
 
         client = mongoDB.makeConnection()
-        mongoDB.insertData(client,params)
+        #mongoDB.insertData(client,params)
         first_aid = mongoDB.getData(client,params)
         mongoDB.closeConnection(client)
 
