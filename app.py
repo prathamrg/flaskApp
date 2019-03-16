@@ -71,7 +71,7 @@ def processRequest():
         params = {
                   "patient_id": 4567,
                   "patient_name":"Jane Doe",
-                  "date": str(datetime.utcnow()),
+                  "date": str(datetime.strptime(datetime.now().strftime('%Y-%m-%d %H:%M'), '%Y-%m-%d %H:%M')),
                   "symptom":primarySymptom,
                   "symptom_severity":symptomSeverity,
                   "symptom_duration":symptomDuration,
