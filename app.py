@@ -12,7 +12,6 @@ from utils.mongodb_connection import mongoDB
 from utils.helper import Response
 import json
 from _datetime import datetime
-import asyncio
 
 
 
@@ -81,10 +80,9 @@ def processRequest():
                   "sleep_pattern":sleepPattern
                 }
 
-        loop = asyncio.get_event_loop()
         client = mongoDB.makeConnection()
         first_aid = mongoDB.getData(client,params)
-        loop.run_until_complete(mongoDB.insertData(client,params))
+        #mongoDB.insertData(client,params)
         mongoDB.closeConnection(client)
 
         response = "Thanks for providing the information. Since you have {0} {1} since {2} and are {3}, I suggest you to take the following course of preliminary action: {4}. Do you want me to send your details to the nearest HCP?".format(symptomSeverity,primarySymptom,symptomDuration,sleepPattern,first_aid)
