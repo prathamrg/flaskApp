@@ -9,7 +9,7 @@ class mongoDB():
         db = client[dbname]
         collection = db[collectionname]
 
-        symptom = params.get("symptoms")
+        symptom = params.get("symptom")
         query = {"symptom":symptom}
 
         document = collection.find_one(query)
