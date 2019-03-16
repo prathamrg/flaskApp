@@ -87,11 +87,32 @@ def processRequest():
 
         response = "Thanks for providing the information. Since you have {0} {1} since {2} and are {3}, I suggest you to take the following course of preliminary action: {4}. Do you want me to send your details to the nearest HCP?".format(symptomSeverity,primarySymptom,symptomDuration,sleepPattern,first_aid)
 
+    elif intent == "ConfirmSend":
 
+        outputContexts = req.get("queryResult").get("outputContexts")
+        for outputContext in outputContexts:
+            if "primarysymptom-followup" in outputContext.get("name"):
+                parameters = outputContext.get("parameters")
+                primarySymptom = parameters.get("PrimarySymptom")
+                symptomSeverity = parameters.get("SymptomSeverity")
+                sleepPattern = parameters.get("SleepPattern")
+                symptomDuration = parameters.get("SymptomDuration")
 
+        params = {
+            "patient_id": 4567,
+            "patient_name": "Jane Doe",
+            "date": str(datetime.strptime(datetime.now().strftime('%Y-%m-%d %H:%M'), '%Y-%m-%d %H:%M')),
+            "symptom": primarySymptom,
+            "symptom_severity": symptomSeverity,
+            "symptom_duration": symptomDuration,
+            "sleep_pattern": sleepPattern
+        }
 
+        client = mongoDB.makeConnection()
+        mongoDB.insertData(client,params)
+        mongoDB.closeConnection(client)
 
-
+        response = "I have shared your concerns with your nearest HCP who shall revert to you shortly"
 
     output = Response.makeResponse(response)
     
