@@ -56,7 +56,7 @@ def processRequest():
                 symptomSeverity = parameters.get("SymptomSeverity")
                 sleepPattern    = parameters.get("SleepPattern")
 
-        response = "Since when do you have {}? Today, Yesterday, This Week?".format(primarySymptom)
+        response = "Since when do you have {}?".format(primarySymptom)
 
     elif intent == "SymptomDuration":
         outputContexts = req.get("queryResult").get("outputContexts")
@@ -67,7 +67,7 @@ def processRequest():
                 symptomSeverity = parameters.get("SymptomSeverity")
                 sleepPattern    = parameters.get("SleepPattern")
                 symptomDuration = parameters.get("SymptomDuration")
-        response = "You have {0} {1} since {2} and are {3}".format(symptomSeverity,primarySymptom,symptomDuration,sleepPattern)
+
         params = {
                   "patient_id": 4567,
                   "patient_name":"Jane Doe",
@@ -77,7 +77,12 @@ def processRequest():
                   "symptom_duration":symptomDuration,
                   "sleep_pattern":sleepPattern
                 }
+
         mongoDB.insertData(params)
+        first_aid = mongoDB.getData(params)
+
+        response = "Thanks for providing the information. Since you have {0} {1} since {2} and are {3}, I suggest you to take the following course of preliminary action: {4}".format(symptomSeverity,primarySymptom,symptomDuration,sleepPattern,first_aid)
+
 
 
 
