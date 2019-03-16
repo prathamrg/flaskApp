@@ -23,7 +23,7 @@ class mongoDB():
         query = {"patient_id":params.get("patient_id")}
 
         update = {"$set": {"patient_name":params.get("patient_name"),
-                           "patient_history_"+params.get("date"):
+                           "patient_history_{}".format(params.get("date")):
                                                    {
                                                     "symptom":params.get("symptom"),
                                                     "symptom_severity": params.get("symptom_severity"),
