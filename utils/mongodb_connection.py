@@ -3,15 +3,20 @@ import pymongo
 class mongoDB():
 
 
-    def getData(dbname, collectionname):
+    def getData(params, dbname="Medical_Database", collectionname="Symptom_FirstAid"):
 
         client = pymongo.MongoClient("mongodb+srv://pratham:mongodbatpratham95@cluster0-cjgfn.mongodb.net/test?retryWrites=true")
         db = client[dbname]
         collection = db[collectionname]
 
-        dictionary = collection.find_one()
+        symptom = params.get("symptoms")
+        query = {"symptom":symptom}
+
+        document = collection.find(query)
+        first_aid = document.get("first-aid")
+        #dictionary = collection.find_one()
         client.close()
-        return dictionary
+        return first_aid
 
     def insertData(params, dbname="patient_detail", collectionname="patient_detail"):
 
@@ -32,6 +37,7 @@ class mongoDB():
                                                    }}}
 
         collection.update(query,update,upsert=True)
+        client.close()
 
 
 
