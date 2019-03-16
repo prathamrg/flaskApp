@@ -35,7 +35,7 @@ def processRequest():
     if intent == "PrimarySymptom":
 
         primarySymptoms = req.get("queryResult").get("parameters").get("PrimarySymptom")
-        response = "Alright. What is the severity of your {}? Low, Moderate or High?".format(primarySymptoms[0])
+        response = "Alright. What is the severity of your {}? Low, Moderate or High?".format(primarySymptoms)
     
     elif intent == "SymptomSeverity":
 
@@ -47,10 +47,25 @@ def processRequest():
         for outputContext in outputContexts:
             if "primarysymptom-followup" in outputContext.get("name"):
                 parameters = outputContext.get("parameters")
-                primarySymptoms = parameters.get("PrimarySymptom")
+                primarySymptom = parameters.get("PrimarySymptom")
                 symptomSeverity = parameters.get("SymptomSeverity")
                 sleepPattern    = parameters.get("SleepPattern")
-        response = "You have {0} {1} and are {2}".format(symptomSeverity,primarySymptoms[0],sleepPattern)
+
+        response = "Since when do you have {}? Today, Yesterday, This Week?".format(primarySymptom)
+
+    elif intent == "SymptomDuration":
+        outputContexts = req.get("queryResult").get("outputContexts")
+        for outputContext in outputContexts:
+            if "primarysymptom-followup" in outputContext.get("name"):
+                parameters = outputContext.get("parameters")
+                primarySymptom = parameters.get("PrimarySymptom")
+                symptomSeverity = parameters.get("SymptomSeverity")
+                sleepPattern    = parameters.get("SleepPattern")
+                symptomDuration = parameters.get("SymptomDuration")
+        response = "You have {0} {1} since {2} and are {3}".format(symptomSeverity,primarySymptom,symptomDuration,sleepPattern)
+
+
+
 
     output = Response.makeResponse(response)
     
