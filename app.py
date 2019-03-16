@@ -81,11 +81,11 @@ def processRequest():
                 }
 
         client = mongoDB.makeConnection()
-        #mongoDB.insertData(client,params)
         first_aid = mongoDB.getData(client,params)
+        mongoDB.insertData(client,params)
         mongoDB.closeConnection(client)
 
-        response = "Thanks for providing the information. Since you have {0} {1} since {2} and are {3}, I suggest you to take the following course of preliminary action: {4}".format(symptomSeverity,primarySymptom,symptomDuration,sleepPattern,first_aid)
+        response = "Thanks for providing the information. Since you have {0} {1} since {2} and are {3}, I suggest you to take the following course of preliminary action: {4}, while we send your details to the nearest HCP".format(symptomSeverity,primarySymptom,symptomDuration,sleepPattern,first_aid)
 
 
 
