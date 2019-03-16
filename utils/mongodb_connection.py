@@ -2,10 +2,16 @@ import pymongo
 
 class mongoDB():
 
-
-    def getData(params, dbname="Medical_Database", collectionname="Symptom_FirstAid"):
-
+    def makeConnection(self):
         client = pymongo.MongoClient("mongodb+srv://pratham:mongodbatpratham95@cluster0-cjgfn.mongodb.net/test?retryWrites=true")
+        return client
+
+    def closeConnection(self, client):
+        client.close()
+
+    def getData(self, client, params, dbname="Medical_Database", collectionname="Symptom_FirstAid"):
+
+        #client = pymongo.MongoClient("mongodb+srv://pratham:mongodbatpratham95@cluster0-cjgfn.mongodb.net/test?retryWrites=true")
         db = client[dbname]
         collection = db[collectionname]
 
@@ -18,10 +24,9 @@ class mongoDB():
         client.close()
         return first_aid
 
-    def insertData(params, dbname="patient_detail", collectionname="patient_detail"):
+    def insertData(self, client, params, dbname="patient_detail", collectionname="patient_detail"):
 
-        client = pymongo.MongoClient(
-        "mongodb+srv://pratham:mongodbatpratham95@cluster0-cjgfn.mongodb.net/test?retryWrites=true")
+        #client = pymongo.MongoClient("mongodb+srv://pratham:mongodbatpratham95@cluster0-cjgfn.mongodb.net/test?retryWrites=true")
         db = client[dbname]
         collection = db[collectionname]
 
