@@ -1,4 +1,5 @@
 import pymongo
+import asyncio
 
 class mongoDB():
 
@@ -24,7 +25,7 @@ class mongoDB():
         client.close()
         return first_aid
 
-    def insertData(client, params, dbname="patient_detail", collectionname="patient_detail"):
+    async  def insertData(client, params, dbname="patient_detail", collectionname="patient_detail"):
 
         #client = pymongo.MongoClient("mongodb+srv://pratham:mongodbatpratham95@cluster0-cjgfn.mongodb.net/test?retryWrites=true")
         db = client[dbname]
@@ -41,7 +42,7 @@ class mongoDB():
                                                     "sleep_pattern": params.get("sleep_pattern")
                                                    }}}
 
-        collection.update(query,update,upsert=True)
+        await collection.update(query,update,upsert=True)
         client.close()
 
 
