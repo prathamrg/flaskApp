@@ -12,7 +12,7 @@ class mongoDB():
         symptom = params.get("symptoms")
         query = {"symptom":symptom}
 
-        document = collection.find(query)
+        document = collection.find_one(query)
         first_aid = document.get("first-aid")
         #dictionary = collection.find_one()
         client.close()
