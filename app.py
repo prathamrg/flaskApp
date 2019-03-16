@@ -19,12 +19,14 @@ app = Flask(__name__)
 
 @app.route('/test', methods=['POST'])
 def testMongo():
-    #dict1 = mongoDB.getData("guidebook","restaurants")
-    #return jsonify(address=dict1.get('address'),borough=dict1.get('borough'))
-    req = request.get_json(silent=True, force=True)
-    mongoDB.insertData(req)
 
-    return jsonify(req)
+
+    req = request.get_json(silent=True, force=True)
+
+    res = mongoDB.getData(req)
+    #mongoDB.insertData(req)
+
+    return jsonify(res)
 
 @app.route('/authentication', methods=['POST'])
 def authenticate():
@@ -78,8 +80,10 @@ def processRequest():
                   "sleep_pattern":sleepPattern
                 }
 
-        mongoDB.insertData(params)
-        first_aid = mongoDB.getData(params)
+        client = mongoDB.makeConnection()
+        mongoDB.insertData(client,params)
+        first_aid = mongoDB.getData(client,params)
+        mongoDB.closeConnection()
 
         response = "Thanks for providing the information. Since you have {0} {1} since {2} and are {3}, I suggest you to take the following course of preliminary action: {4}".format(symptomSeverity,primarySymptom,symptomDuration,sleepPattern,first_aid)
 
