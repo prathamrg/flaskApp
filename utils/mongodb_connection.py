@@ -2,14 +2,14 @@ import pymongo
 
 class mongoDB():
 
-    def makeConnection(self):
+    def makeConnection():
         client = pymongo.MongoClient("mongodb+srv://pratham:mongodbatpratham95@cluster0-cjgfn.mongodb.net/test?retryWrites=true")
         return client
 
-    def closeConnection(self, client):
+    def closeConnection(client):
         client.close()
 
-    def getData(self, client, params, dbname="Medical_Database", collectionname="Symptom_FirstAid"):
+    def getData(client, params, dbname="Medical_Database", collectionname="Symptom_FirstAid"):
 
         #client = pymongo.MongoClient("mongodb+srv://pratham:mongodbatpratham95@cluster0-cjgfn.mongodb.net/test?retryWrites=true")
         db = client[dbname]
