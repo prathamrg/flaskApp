@@ -50,19 +50,20 @@ def send_email():
     severity = dictionary_preprocess.severity_mapping.get(latest["symptom_severity"]) if dictionary_preprocess.severity_mapping.get(latest["symptom_severity"]) is not None else 1
     duration = dictionary_preprocess.duration_mapping.get(latest["symptom_duration"]) if dictionary_preprocess.duration_mapping.get(latest["symptom_duration"]) is not None else 1
     sleep = dictionary_preprocess.sleep_mapping.get(latest["sleep_pattern"]) if dictionary_preprocess.sleep_mapping.get(latest["sleep_pattern"]) is not None else 1
-    symptom = dictionary_preprocess.sleep_mapping.get(latest["symptom"]) if dictionary_preprocess.sleep_mapping.get(latest["symptom"]) is not None else 1
+    symptom = dictionary_preprocess.symptom_mapping.get(latest["symptom"]) if dictionary_preprocess.symptom_mapping.get(latest["symptom"]) is not None else 1
 
     data = [severity,duration,sleep,symptom]
     print(data)
 
+    decision_tree_clf = pickle.load(open(os.path.dirname(os.path.realpath(__file__))+'\\models\\decision_tree_model.sav','rb'))
 
-    decision_tree_clf = pickle.load(open(os.path.dirname(os.path.realpath(__file__))+'/models/decision_tree_model.sav','rb'))
+    #decision_tree_clf = pickle.load(open(os.path.dirname(os.path.realpath(__file__))+'/models/decision_tree_model.sav','rb'))
     patient_health = ML.predict(decision_tree_clf,data)
     print(patient_health)
     emails.send_email(message=patient_detail, patient_health=patient_health)
 
-    return jsonify("Patient Health is {}. Email sent to HCP".format(patient_health))
-
+    #return jsonify("Patient Health is {}. Email sent to HCP".format(patient_health))
+    return jsonify(latest)
 @app.route('/dialogflow_webhook', methods=['POST'])
 def processRequest():
 
