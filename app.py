@@ -45,6 +45,7 @@ def send_email():
     # predict overall condition based on latest survey
 
     latest = patient_detail.get(sorted(patient_detail.keys(), reverse=True)[2])
+    print(latest)
 
     severity = dictionary_preprocess.severity_mapping.get(latest["symptom_severity"]) if dictionary_preprocess.severity_mapping.get(latest["symptom_severity"]) is not None else 1
     duration = dictionary_preprocess.duration_mapping.get(latest["symptom_duration"]) if dictionary_preprocess.duration_mapping.get(latest["symptom_duration"]) is not None else 1
