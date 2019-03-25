@@ -12,6 +12,7 @@ from utils.mongodb_connection import mongoDB
 from utils.helper import Response
 import json
 from _datetime import datetime
+from utils import emails
 
 
 
@@ -28,10 +29,17 @@ def testMongo():
 
     return jsonify(res)
 
-@app.route('/authentication', methods=['POST'])
-def authenticate():
+@app.route('/send_email', methods=['POST'])
+def send_email():
+
     req = request.get_json(silent=True, force=True)
-    return jsonify(req)
+
+    client = mongoDB.makeConnection()
+    patient_detail = mongoDB.getPatientData(client, patient_id=4567)
+    mongoDB.closeConnection(client)
+    emails.send_email(message=patient_detail, patient_health="Severe")
+
+    return jsonify("Email sent to HCP")
 
 @app.route('/dialogflow_webhook', methods=['POST'])
 def processRequest():
