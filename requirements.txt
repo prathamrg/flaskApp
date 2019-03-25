@@ -7,4 +7,5 @@ Flask-RESTful==0.3.6
 Flask-SocketIO==2.9.2
 numpy==1.14.3
 scikit-learn==0.18.1
+scipy==0.19.0
 gunicorn==19.9.0
