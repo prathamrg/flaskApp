@@ -4,6 +4,7 @@
 
 # Importing the required packages
 import numpy as np
+import sklearn
 # import pandas as pd
 # from sklearn.metrics import confusion_matrix
 # #from sklearn.cross_validation import train_test_split
