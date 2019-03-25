@@ -93,7 +93,7 @@ def processRequest():
         #mongoDB.insertData(client,params)
         mongoDB.closeConnection(client)
 
-        response = "Thanks for providing the information. Since you have {0} {1} since {2} and are {3}, I suggest you to take the following course of preliminary action: {4}. Do you want me to send your details to the nearest HCP?".format(symptomSeverity,primarySymptom,symptomDuration,sleepPattern,first_aid)
+        response = "Thanks for providing the information. Since you have {0} {1} since {2} and are {3}, I suggest you to take the following course of preliminary action: {4}. Do you want me to save your details?".format(symptomSeverity,primarySymptom,symptomDuration,sleepPattern,first_aid)
 
     elif intent == "ConfirmSend":
 
@@ -120,7 +120,7 @@ def processRequest():
         mongoDB.insertData(client,params)
         mongoDB.closeConnection(client)
 
-        response = "I have shared your concerns with your nearest HCP who shall revert to you shortly"
+        response = "Your details have been saved. Please press the send button if you wish to send a notification to the nearest HCP with your details"
 
     output = Response.makeResponse(response)
     
