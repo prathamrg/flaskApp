@@ -27,7 +27,6 @@ duration_mapping = {
 }
 
 sleep_mapping = {
-
     "tired":1,
     "restless":0
 }
