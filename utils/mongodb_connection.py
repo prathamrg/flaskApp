@@ -9,6 +9,25 @@ class mongoDB():
     def closeConnection(client):
         client.close()
 
+
+
+    def getPatientData(client, patient_id, dbname="patient_detail", collectionname="patient_detail"):
+
+        #client = pymongo.MongoClient("mongodb+srv://pratham:mongodbatpratham95@cluster0-cjgfn.mongodb.net/test?retryWrites=true")
+        db = client[dbname]
+        collection = db[collectionname]
+
+
+        query = {"patient_id":patient_id}
+
+        document = collection.find_one(query)
+
+        client.close()
+        return document
+
+
+
+
     def getData(client, params, dbname="Medical_Database", collectionname="Symptom_FirstAid"):
 
         #client = pymongo.MongoClient("mongodb+srv://pratham:mongodbatpratham95@cluster0-cjgfn.mongodb.net/test?retryWrites=true")
