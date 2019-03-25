@@ -55,7 +55,7 @@ def send_email():
     print(data)
 
 
-    decision_tree_clf = pickle.load(open(os.path.dirname(os.path.realpath(__file__))+'\\models\\decision_tree_model.sav','rb'))
+    decision_tree_clf = pickle.load(open(os.path.dirname(os.path.realpath(__file__))+'/models/decision_tree_model.sav','rb'))
     patient_health = ML.predict(decision_tree_clf,data)
     print(patient_health)
     emails.send_email(message=patient_detail, patient_health=patient_health)
