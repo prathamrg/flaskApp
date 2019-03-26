@@ -62,7 +62,7 @@ def send_email():
     decision_tree_clf = pickle.load(open(os.path.dirname(os.path.realpath(__file__))+'/models/decision_tree_model.sav','rb'))
     patient_health = ML.predict(decision_tree_clf,data)
     print(patient_health)
-    emails.send_email(message=patient_detail, patient_health=patient_health)
+    emails.send_email(payload=patient_detail, patient_health=patient_health)
 
     return jsonify("Patient Health is {}. Email sent to HCP".format(patient_health))
     #return jsonify(latest)
