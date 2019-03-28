@@ -11,5 +11,5 @@ class Response():
         return {
                 "fulfillmentText"     : text,
                 "fulfillmentMessages" : [{"text": {"text":[text]}}]
-                
             }
+
