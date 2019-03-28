@@ -28,10 +28,10 @@ def testMongo():
 
     req = request.get_json(silent=True, force=True)
 
-    res = mongoDB.getData(req)
+    #res = mongoDB.getData(req)
     #mongoDB.insertData(req)
 
-    return jsonify(res)
+    return jsonify(ML.test())
 
 @app.route('/send_email', methods=['POST'])
 def send_email():
