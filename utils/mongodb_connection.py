@@ -9,7 +9,21 @@ class mongoDB():
     def closeConnection(client):
         client.close()
 
+    def sign_up(client, patient_params, dbname="patient_detail", collectionname="patient_metadata"):
 
+        db = client[dbname]
+        collection = db[collectionname]
+
+        query = {"patient_id":patient_params["patient_id"]}
+        document = collection.find_one(query)
+
+        # if no user with patient_id exisits:
+        if document is None:
+            collection.insert_one(patient_params)
+            return "Your account Has been created! Please sign in with your credentials to start interacting with Virtual Nurse!"
+
+        else:
+            return "Sorry. Another user with this patient id already exists. Please try signing up with a unique id"
 
     def getPatientData(client, patient_id, dbname="patient_detail", collectionname="patient_detail"):
 
