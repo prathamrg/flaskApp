@@ -28,13 +28,13 @@ class mongoDB():
 
 
 
-    def getData(client, params, dbname="Medical_Database", collectionname="Symptom_FirstAid"):
+    def getData(client, symptom, dbname="Medical_Database", collectionname="Symptom_FirstAid"):
 
         #client = pymongo.MongoClient("mongodb+srv://pratham:mongodbatpratham95@cluster0-cjgfn.mongodb.net/test?retryWrites=true")
         db = client[dbname]
         collection = db[collectionname]
 
-        symptom = params.get("symptom")
+        #symptom = params.get("symptom")
         query = {"symptom":symptom}
 
         document = collection.find_one(query)
@@ -43,7 +43,7 @@ class mongoDB():
         client.close()
         return first_aid
 
-    def insertData(client, params, dbname="patient_detail", collectionname="patient_detail"):
+    def insertData(client, params, dbname="patient_detail", collectionname="patient_detail", type="symptom"):
 
         #client = pymongo.MongoClient("mongodb+srv://pratham:mongodbatpratham95@cluster0-cjgfn.mongodb.net/test?retryWrites=true")
         db = client[dbname]
@@ -51,17 +51,32 @@ class mongoDB():
 
         query = {"patient_id":params.get("patient_id")}
 
-        update = {"$set": {"patient_name":params.get("patient_name"),
-                           "patient_history_{}".format(params.get("date")):
-                                                   {
-                                                    "symptom":params.get("symptom"),
-                                                    "symptom_severity": params.get("symptom_severity"),
-                                                    "symptom_duration": params.get("symptom_duration"),
-                                                    "sleep_pattern": params.get("sleep_pattern")
-                                                   }}}
+        if type=="symptom":
+            update = {"$set": {"patient_name":params.get("patient_name"),
+                               "patient_history_{}".format(params.get("date")):
+                                                       {
+                                                        "symptom":params.get("symptom"),
+                                                        "symptom_severity": params.get("symptom_severity"),
+                                                        "symptom_duration": params.get("symptom_duration"),
+                                                        "sleep_pattern": params.get("sleep_pattern")
+                                                       }}}
 
-        collection.update(query,update,upsert=True)
+            collection.update(query,update,upsert=True)
+
+        elif type=="accident":
+            update = {"$set": {"patient_name": params.get("patient_name"),
+                               "patient_history_{}".format(params.get("date")):
+                                   {
+                                       "accident": params.get("accident"),
+                                       "accident_severity": params.get("accident_severity"),
+                                       "accident_duration": params.get("accident_duration"),
+                                       "accident_part": params.get("accident_part")
+                                   }}}
+
+            collection.update(query, update, upsert=True)
+
         client.close()
+
 
 
 
