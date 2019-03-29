@@ -37,7 +37,8 @@ def sign_up():
         "patient_gender" : req.get('patient_gender')
     }
     client = mongoDB.makeConnection()
-    mongoDB.sign_up(client,patient_params)
+    res = mongoDB.sign_up(client,patient_params)
+    return jsonify(res)
 
 @app.route('/send_email', methods=['POST'])
 def send_email():
