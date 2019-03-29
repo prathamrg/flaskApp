@@ -22,18 +22,9 @@ import os
 
 app = Flask(__name__)
 
-@app.route('/test', methods=['POST'])
-def testMongo():
 
 
-    req = request.get_json(silent=True, force=True)
-
-    #res = mongoDB.getData(req)
-    #mongoDB.insertData(req)
-
-    return jsonify(ML.test())
-
-@app.route('/test', methods=['POST'])
+@app.route('/sign_up', methods=['POST'])
 def sign_up():
 
     req = request.get_json(silent=True, force=True)
