@@ -123,6 +123,8 @@ def processRequest():
     req = request.get_json(silent=True, force=True)
     intent = req.get("queryResult").get("intent").get("displayName")
 
+    keys = session.keys()
+
 
     # Greetings
     if intent == "Welcome":
@@ -130,7 +132,7 @@ def processRequest():
         response = '''Hello {}, I am your Virtual Nurse. 
                     I can help you with advice on first aid for your symptom or accident by asking you a few simple questions. 
                     Or I could call up your nearest doctor. Please let me know what is your primary symptom or accident
-                    '''.format(session["patient_name"])
+                    '''.format(str(keys))
 
     # Primary Symptom Follow-Up Flow:
     if intent == "SymptomDuration":
