@@ -21,6 +21,7 @@ import os
 
 
 app = Flask(__name__)
+app.secret_key = b'_##3@#rt^1~8-5#y2L"F4Q8z'
 
 @app.route('/get_session_test', methods=['GET'])
 def get_session_test():
