@@ -33,6 +33,21 @@ def testMongo():
 
     return jsonify(ML.test())
 
+@app.route('/test', methods=['POST'])
+def sign_up():
+
+    req = request.get_json(silent=True, force=True)
+
+    patient_params = {
+        "patient_name" : req.get('patient_name'),
+        "patient_id" : req.get('patient_id'),
+        "password" : req.get('password'),
+        "patient_age" : req.get('patient_age'),
+        "patient_gender" : req.get('patient_gender')
+    }
+    client = mongoDB.makeConnection()
+    mongoDB.sign_up(client,patient_params)
+
 @app.route('/send_email', methods=['POST'])
 def send_email():
 
