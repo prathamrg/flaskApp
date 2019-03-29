@@ -82,21 +82,11 @@ def processRequest():
                 parameters = outputContext.get("parameters")
                 primarySymptom = parameters.get("PrimarySymptom")
                 symptomSeverity = parameters.get("SymptomSeverity")
-                sleepPattern    = parameters.get("SleepPattern")
+                sleepPattern = parameters.get("SleepPattern")
                 symptomDuration = parameters.get("SymptomDuration")
 
-        params = {
-                  "patient_id": 4567,
-                  "patient_name":"Jane Doe",
-                  "date": str(datetime.strptime(datetime.now().strftime('%Y-%m-%d %H:%M'), '%Y-%m-%d %H:%M')),
-                  "symptom":primarySymptom,
-                  "symptom_severity":symptomSeverity,
-                  "symptom_duration":symptomDuration,
-                  "sleep_pattern":sleepPattern
-                }
-
         client = mongoDB.makeConnection()
-        first_aid = mongoDB.getData(client,params)
+        first_aid = mongoDB.getData(client,primarySymptom)
         #mongoDB.insertData(client,params)
         mongoDB.closeConnection(client)
 
@@ -144,19 +134,46 @@ def processRequest():
                   "patient_id": 4567,
                   "patient_name":"Jane Doe",
                   "date": str(datetime.strptime(datetime.now().strftime('%Y-%m-%d %H:%M'), '%Y-%m-%d %H:%M')),
-                  "symptom":AccidentSymptom,
+                  "accident":AccidentSymptom,
                   "accident_severity":AccidentSeverity,
                   "accident_duration":AccidentDuration,
                   "accident_part":AccidentPart
                 }
 
         client = mongoDB.makeConnection()
-        first_aid = mongoDB.getData(client,params)
+        first_aid = mongoDB.getData(client,AccidentSymptom)
         #mongoDB.insertData(client,params)
         mongoDB.closeConnection(client)
 
         response = "Thanks for providing the information. I suggest you to take the following course of preliminary action: {}. Do you want me to save your details?".format(first_aid)
 
+
+    elif intent == "ConfirmSendAccidentDetail":
+        outputContexts = req.get("queryResult").get("outputContexts")
+        for outputContext in outputContexts:
+            if "accidentsymptom-followup" in outputContext.get("name"):
+                parameters = outputContext.get("parameters")
+                AccidentSymptom = parameters.get("AccidentSymptom")
+                AccidentSeverity = parameters.get("SymptomSeverity")
+                AccidentPart    = parameters.get("AccidentPart")
+                AccidentDuration = parameters.get("SymptomDuration")
+
+        params = {
+                  "patient_id": 4567,
+                  "patient_name":"Jane Doe",
+                  "date": str(datetime.strptime(datetime.now().strftime('%Y-%m-%d %H:%M'), '%Y-%m-%d %H:%M')),
+                  "accident":AccidentSymptom,
+                  "accident_severity":AccidentSeverity,
+                  "accident_duration":AccidentDuration,
+                  "accident_part":AccidentPart
+                }
+
+        client = mongoDB.makeConnection()
+        #first_aid = mongoDB.getData(client,AccidentSymptom)
+        mongoDB.insertData(client,params, type="accident")
+        mongoDB.closeConnection(client)
+
+        response = "Your details have been saved. Please press the send button if you wish to send a notification to the nearest HCP with your details"
 
 
 
