@@ -153,8 +153,10 @@ def processRequest():
                 symptomDuration = parameters.get("SymptomDuration")
 
         params = {
-            "patient_id": 4567,
-            "patient_name": "Jane Doe",
+            "patient_id": session['patient_id'],
+            "patient_name": session['patient_name'],
+            "patient_age": session['patient_age'],
+            "patient_gender": session['patient_gender'],
             "date": str(datetime.strptime(datetime.now().strftime('%Y-%m-%d %H:%M'), '%Y-%m-%d %H:%M')),
             "symptom": primarySymptom,
             "symptom_severity": symptomSeverity,
@@ -179,15 +181,7 @@ def processRequest():
                 AccidentPart    = parameters.get("AccidentPart")
                 AccidentDuration = parameters.get("SymptomDuration")
 
-        params = {
-                  "patient_id": 4567,
-                  "patient_name":"Jane Doe",
-                  "date": str(datetime.strptime(datetime.now().strftime('%Y-%m-%d %H:%M'), '%Y-%m-%d %H:%M')),
-                  "accident":AccidentSymptom,
-                  "accident_severity":AccidentSeverity,
-                  "accident_duration":AccidentDuration,
-                  "accident_part":AccidentPart
-                }
+
 
         client = mongoDB.makeConnection()
         first_aid = mongoDB.getData(client,AccidentSymptom)
@@ -208,8 +202,10 @@ def processRequest():
                 AccidentDuration = parameters.get("SymptomDuration")
 
         params = {
-                  "patient_id": 4567,
-                  "patient_name":"Jane Doe",
+                  "patient_id": session['patient_id'],
+                  "patient_name": session['patient_name'],
+                  "patient_age": session['patient_age'],
+                  "patient_gender": session['patient_gender'],
                   "date": str(datetime.strptime(datetime.now().strftime('%Y-%m-%d %H:%M'), '%Y-%m-%d %H:%M')),
                   "accident":AccidentSymptom,
                   "accident_severity":AccidentSeverity,
