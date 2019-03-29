@@ -72,6 +72,15 @@ def sign_in():
         session['patient_gender'] = obj.get('patient_gender')
         return jsonify("Login Successful! You may now interact with Virtual Nurse")
 
+@app.route('/sign_out', methods=['GET'])
+def sign_out():
+    session.pop('patient_id',None)
+    session.pop('password',None)
+    session.pop('patient_age',None)
+    session.pop('patient_gender',None)
+
+    return jsonify("You have successfully logged out of Virtual Nurse")
+
 
 @app.route('/send_email', methods=['POST'])
 def send_email():
