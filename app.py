@@ -22,11 +22,20 @@ import os
 
 app = Flask(__name__)
 
+@app.route('/get_session_test', methods=['GET'])
+def get_session_test():
 
+    res = {
+        "patient_id" : session['patient_id'],
+        "patient_name": session['patient_name'],
+        "patient_age": session['patient_age'],
+        "patient_gender": session['patient_gender']
+    }
+
+    return jsonify(res)
 
 @app.route('/sign_up', methods=['POST'])
 def sign_up():
-
     req = request.get_json(silent=True, force=True)
 
     patient_params = {
@@ -38,7 +47,30 @@ def sign_up():
     }
     client = mongoDB.makeConnection()
     res = mongoDB.sign_up(client,patient_params)
+    mongoDB.closeConnection(client)
+
     return jsonify(res)
+
+@app.route('/sign_in', methods=['POST'])
+def sign_in():
+    req = request.get_json(silent=True, force=True)
+
+    patient_id = req.get('patient_id')
+    password = req.get('password')
+
+    client = mongoDB.makeConnection()
+    is_login_success, obj = mongoDB.sign_in(client,patient_id,password)
+    mongoDB.closeConnection(client)
+
+    if is_login_success is False:
+        return jsonify(obj)
+    else:
+        session['patient_id'] = obj.get('patient_id')
+        session['patient_name'] = obj.get('patient_name')
+        session['patient_age'] = obj.get('patient_age')
+        session['patient_gender'] = obj.get('patient_gender')
+        return jsonify("Login Successful! You may now interact with Virtual Nurse")
+
 
 @app.route('/send_email', methods=['POST'])
 def send_email():
