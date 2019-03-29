@@ -25,6 +25,19 @@ class mongoDB():
         else:
             return "Sorry. Another user with this patient id already exists. Please try signing up with a unique id"
 
+    def sign_in(client, patient_id, password, dbname="patient_detail", collectionname="patient_metadata"):
+
+        db = client[dbname]
+        collection = db[collectionname]
+
+        query = {"patient_id": patient_id}
+        document = collection.find_one(query)
+
+        if document.get('password') == password:
+            return True, document
+        else:
+            return False, "username or password invalid. Please try again"
+
     def getPatientData(client, patient_id, dbname="patient_detail", collectionname="patient_detail"):
 
         #client = pymongo.MongoClient("mongodb+srv://pratham:mongodbatpratham95@cluster0-cjgfn.mongodb.net/test?retryWrites=true")
