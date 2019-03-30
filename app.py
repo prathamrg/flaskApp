@@ -108,7 +108,7 @@ def sign_in():
         patient_metadata['patient_age'] = obj.get('patient_age')
         patient_metadata['patient_gender'] = obj.get('patient_gender')
 
-        with open(os.path.dirname(os.path.realpath(__file__)+'/temp/temp.json', 'w')) as tmpfile:
+        with open(os.path.dirname(os.path.realpath(__file__))+'/temp/temp.json', 'w') as tmpfile:
             json.dump(patient_metadata,tmpfile)
 
 
@@ -174,7 +174,7 @@ def processRequest():
 
         patient_metadata = {}
 
-        with open(os.path.dirname(os.path.realpath(__file__)+'/temp/temp.json', 'r')) as tmpfile:
+        with open(os.path.dirname(os.path.realpath(__file__))+'/temp/temp.json', 'r') as tmpfile:
             patient_metadata = json.load(tmpfile)
 
         response = '''Hello {}, I am your Virtual Nurse. 
