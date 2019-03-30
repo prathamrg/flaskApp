@@ -71,7 +71,7 @@ def sign_in():
         session['patient_age'] = obj.get('patient_age')
         session['patient_gender'] = obj.get('patient_gender')
 
-
+        session.permanent = True
         return jsonify("Login Successful! You may now interact with Virtual Nurse")
 
 @app.route('/sign_out', methods=['GET'])
@@ -131,14 +131,7 @@ def processRequest():
     # Greetings
     if intent == "Welcome":
 
-        patient_id = req.get("queryResult").get("parameters").get("patient_id")
-        client = mongoDB.makeConnection()
-        patient_metadata = mongoDB.lookup_patient(client, patient_id)
 
-        session['patient_id'] = patient_metadata.get('patient_id')
-        session['patient_name'] = patient_metadata.get('patient_name')
-        session['patient_age'] = patient_metadata.get('patient_age')
-        session['patient_gender'] = patient_metadata.get('patient_gender')
 
         response = '''Hello {}, I am your Virtual Nurse. 
                     I can help you with advice on first aid for your symptom or accident by asking you a few simple questions. 
