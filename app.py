@@ -153,7 +153,7 @@ def send_email():
     symptom = dictionary_preprocess.symptom_mapping.get(latest.get("symptom")) if dictionary_preprocess.symptom_mapping.get(latest.get("symptom")) is not None else 1
 
     # parameters for accident flow
-    accident_severity = dictionary_preprocess.symptom_mapping.get(latest.get("accident_severity")) if dictionary_preprocess.severity_mapping.get(latest.get("accident_severity")) is not None else 1
+    accident_severity = dictionary_preprocess.severity_mapping.get(latest.get("accident_severity")) if dictionary_preprocess.severity_mapping.get(latest.get("accident_severity")) is not None else 1
     accident_duration = dictionary_preprocess.duration_mapping.get(latest.get("accident_duration")) if dictionary_preprocess.duration_mapping.get(latest.get("accident_duration")) is not None else 1
     accident_part = dictionary_preprocess.part_mapping.get(latest.get("accident_part")) if dictionary_preprocess.part_mapping.get(latest.get("accident_part")) is not None else 1
     accident = dictionary_preprocess.accident_mapping.get(latest.get("accident")) if dictionary_preprocess.accident_mapping.get(latest.get("accident")) is not None else 1
