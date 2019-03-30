@@ -28,11 +28,19 @@ app.secret_key = '#$#$!#aknadjkandk@%$%21697643uknklucfgcvjbvfvbjhkgdcj5765as890
 
 @app.before_request
 def before_request():
+    g.patient_id = None
+    g.patient_name = None
+    g.patient_age = None
+    g.patient_gender = None
 
-    g.patient_id = session['patient_id']
-    g.patient_name = session['patient_name']
-    g.patient_age = session['patient_age']
-    g.patient_gender = session['patient_gender']
+    if 'patient_id' in session:
+        g.patient_id = session['patient_id']
+    if 'patient_name' in session:
+        g.patient_name = session['patient_name']
+    if 'patient_age' in session:
+        g.patient_age = session['patient_age']
+    if 'patient_gender' in session:
+        g.patient_gender = session['patient_gender']
 
 @app.route('/get_session_test', methods=['GET'])
 def get_session_test():
