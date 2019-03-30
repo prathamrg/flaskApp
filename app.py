@@ -35,6 +35,11 @@ def get_session_test():
         "patient_gender": session['patient_gender']
     }
 
+    return jsonify([g.patient_id,
+    g.patient_name,
+    g.patient_age,
+    g.patient_gender])
+
     return jsonify(res)
 
 @app.route('/sign_up', methods=['POST'])
