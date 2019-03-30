@@ -135,11 +135,15 @@ def processRequest():
         client = mongoDB.makeConnection()
         patient_metadata = mongoDB.lookup_patient(client, patient_id)
 
+        session['patient_id'] = patient_metadata.get('patient_id')
+        session['patient_name'] = patient_metadata.get('patient_name')
+        session['patient_age'] = patient_metadata.get('patient_age')
+        session['patient_gender'] = patient_metadata.get('patient_gender')
 
         response = '''Hello {}, I am your Virtual Nurse. 
                     I can help you with advice on first aid for your symptom or accident by asking you a few simple questions. 
                     Or I could call up your nearest doctor. Please let me know what is your primary symptom or accident
-                    '''.format(str(patient_metadata))
+                    '''.format(str(session['patient_name']))
 
     # Primary Symptom Follow-Up Flow:
     if intent == "SymptomDuration":
