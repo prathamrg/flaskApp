@@ -130,8 +130,11 @@ def send_email():
 
     req = request.get_json(silent=True, force=True)
 
+    with open(os.path.dirname(os.path.realpath(__file__)) + '/temp/temp.json', 'r') as tmpfile:
+        patient_metadata = json.load(tmpfile)
+
     client = mongoDB.makeConnection()
-    patient_detail = mongoDB.getPatientData(client, patient_id=4567)
+    patient_detail = mongoDB.getPatientData(client, patient_id=patient_metadata['patient_id'])
     mongoDB.closeConnection(client)
 
     # predict overall condition based on latest survey
@@ -262,11 +265,14 @@ def processRequest():
                 AccidentPart    = parameters.get("AccidentPart")
                 AccidentDuration = parameters.get("SymptomDuration")
 
+        with open(os.path.dirname(os.path.realpath(__file__))+'/temp/temp.json', 'r') as tmpfile:
+            patient_metadata = json.load(tmpfile)
+
         params = {
-                  "patient_id": session['patient_id'],
-                  "patient_name": session['patient_name'],
-                  "patient_age": session['patient_age'],
-                  "patient_gender": session['patient_gender'],
+                  "patient_id": patient_metadata['patient_id'],
+                  "patient_name": patient_metadata['patient_name'],
+                  "patient_age": patient_metadata['patient_age'],
+                  "patient_gender": patient_metadata['patient_gender'],
                   "date": str(datetime.strptime(datetime.now().strftime('%Y-%m-%d %H:%M'), '%Y-%m-%d %H:%M')),
                   "accident":AccidentSymptom,
                   "accident_severity":AccidentSeverity,
