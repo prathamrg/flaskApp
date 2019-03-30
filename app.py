@@ -71,7 +71,7 @@ def sign_in():
         session['patient_age'] = obj.get('patient_age')
         session['patient_gender'] = obj.get('patient_gender')
 
-        session.permanent = True
+        #session.permanent = True
         return jsonify("Login Successful! You may now interact with Virtual Nurse")
 
 @app.route('/sign_out', methods=['GET'])
