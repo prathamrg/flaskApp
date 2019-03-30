@@ -28,10 +28,10 @@ app.secret_key = '#$#$!#aknadjkandk@%$%21697643uknklucfgcvjbvfvbjhkgdcj5765as890
 
 @app.before_request
 def before_request():
-    g.patient_id = None
-    g.patient_name = None
-    g.patient_age = None
-    g.patient_gender = None
+    #g.patient_id = None
+    #g.patient_name = None
+    #g.patient_age = None
+    #g.patient_gender = None
 
     if 'patient_id' in session:
         g.patient_id = session['patient_id']
