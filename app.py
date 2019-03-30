@@ -143,8 +143,8 @@ def send_email():
     print(latest)
 
     # common parameters
-    age = latest["patient_age"]
-    gender = dictionary_preprocess.gender_mapping.get(latest["patient_gender"])
+    age = patient_metadata["patient_age"]
+    gender = dictionary_preprocess.gender_mapping.get(patient_metadata["patient_gender"])
 
     # parameters for primary symptom flow
     severity = dictionary_preprocess.severity_mapping.get(latest["symptom_severity"]) if dictionary_preprocess.severity_mapping.get(latest["symptom_severity"]) is not None else 1
