@@ -211,11 +211,13 @@ def processRequest():
                 sleepPattern = parameters.get("SleepPattern")
                 symptomDuration = parameters.get("SymptomDuration")
 
+        with open(os.path.dirname(os.path.realpath(__file__))+'/temp/temp.json', 'r') as tmpfile:
+            patient_metadata = json.load(tmpfile)
         params = {
-            "patient_id": session['patient_id'],
-            "patient_name": session['patient_name'],
-            "patient_age": session['patient_age'],
-            "patient_gender": session['patient_gender'],
+            "patient_id": patient_metadata['patient_id'],
+            "patient_name": patient_metadata['patient_name'],
+            "patient_age": patient_metadata['patient_age'],
+            "patient_gender": patient_metadata['patient_gender'],
             "date": str(datetime.strptime(datetime.now().strftime('%Y-%m-%d %H:%M'), '%Y-%m-%d %H:%M')),
             "symptom": primarySymptom,
             "symptom_severity": symptomSeverity,
