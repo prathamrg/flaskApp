@@ -102,6 +102,17 @@ def sign_in():
         g.patient_age = obj.get('patient_age')
         g.patient_gender = obj.get('patient_gender')
 
+        patient_metadata = {}
+        patient_metadata['patient_id'] = obj.get('patient_id')
+        patient_metadata['patient_name'] = obj.get('patient_name')
+        patient_metadata['patient_age'] = obj.get('patient_age')
+        patient_metadata['patient_gender'] = obj.get('patient_gender')
+
+        with open(os.path.dirname(os.path.realpath(__file__)+'/temp/temp.json', 'w')) as tmpfile:
+            json.dump(patient_metadata,tmpfile)
+
+
+
         return jsonify("Login Successful! You may now interact with Virtual Nurse")
 
 @app.route('/sign_out', methods=['GET'])
@@ -161,12 +172,15 @@ def processRequest():
     # Greetings
     if intent == "Welcome":
 
+        patient_metadata = {}
 
+        with open(os.path.dirname(os.path.realpath(__file__)+'/temp/temp.json', 'r')) as tmpfile:
+            patient_metadata = json.load(tmpfile)
 
         response = '''Hello {}, I am your Virtual Nurse. 
                     I can help you with advice on first aid for your symptom or accident by asking you a few simple questions. 
                     Or I could call up your nearest doctor. Please let me know what is your primary symptom or accident
-                    '''.format(str(g.patient_name))
+                    '''.format(str(patient_metadata['patient_name']))
 
     # Primary Symptom Follow-Up Flow:
     if intent == "SymptomDuration":
