@@ -142,12 +142,30 @@ def send_email():
     latest = patient_detail.get(sorted(patient_detail.keys(), reverse=True)[2])
     print(latest)
 
+    # common parameters
+    age = latest["patient_age"]
+    gender = dictionary_preprocess.gender_mapping.get(latest["patient_gender"])
+
+    # parameters for primary symptom flow
     severity = dictionary_preprocess.severity_mapping.get(latest["symptom_severity"]) if dictionary_preprocess.severity_mapping.get(latest["symptom_severity"]) is not None else 1
     duration = dictionary_preprocess.duration_mapping.get(latest["symptom_duration"]) if dictionary_preprocess.duration_mapping.get(latest["symptom_duration"]) is not None else 1
     sleep = dictionary_preprocess.sleep_mapping.get(latest["sleep_pattern"]) if dictionary_preprocess.sleep_mapping.get(latest["sleep_pattern"]) is not None else 1
     symptom = dictionary_preprocess.symptom_mapping.get(latest["symptom"]) if dictionary_preprocess.symptom_mapping.get(latest["symptom"]) is not None else 1
 
-    data = [severity,duration,sleep,symptom]
+    # parameters for accident flow
+    accident_severity = dictionary_preprocess.symptom_mapping.get(latest["accident_severity"]) if dictionary_preprocess.severity_mapping.get(latest["accident_severity"]) is not None else 1
+    accident_duration = dictionary_preprocess.duration_mapping.get(latest["accident_duration"]) if dictionary_preprocess.duration_mapping.get(latest["accident_duration"]) is not None else 1
+    accident_part = dictionary_preprocess.part_mapping.get(latest["accident_part"]) if dictionary_preprocess.part_mapping.get(latest["accident_part"]) is not None else 1
+    accident = dictionary_preprocess.accident_mapping.get(latest["accident"]) if dictionary_preprocess.accident_mapping.get(latest["accident"]) is not None else 1
+
+
+    # prepare symptom or accident feature set:
+    if "accident" in latest:
+        data = [accident_severity,accident_duration,accident_part,accident]
+        #add age, gender
+    else:
+        data = [severity,duration,sleep,symptom]
+        #add age, gender
     print(data)
 
     #postman testing
