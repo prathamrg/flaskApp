@@ -24,6 +24,7 @@ app = Flask(__name__)
 #app.secret_key = '@^@vjvjgufr767t7796w221697643uknklucfgcvjbvfvbjhkgdcj57655744332'
 #app.secret_key = 'ceb212e796ee40d6b35c9cc171c34c3a'
 app.secret_key = '#$#$!#aknadjkandk@%$%21697643uknklucfgcvjbvfvbjhkgdcj5765as89080'
+
 @app.route('/get_session_test', methods=['GET'])
 def get_session_test():
 
@@ -72,7 +73,7 @@ def sign_in():
         session['patient_age'] = obj.get('patient_age')
         session['patient_gender'] = obj.get('patient_gender')
 
-        #session.permanent = True
+        session.permanent = True
         return jsonify("Login Successful! You may now interact with Virtual Nurse")
 
 @app.route('/sign_out', methods=['GET'])
