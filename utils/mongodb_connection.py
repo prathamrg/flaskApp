@@ -33,10 +33,20 @@ class mongoDB():
         query = {"patient_id": patient_id}
         document = collection.find_one(query)
 
-        if document.get('password') == password:
+        if document.get('patient_id') == patient_id and document.get('password') == password:
             return True, document
         else:
             return False, "username or password invalid. Please try again"
+
+    def lookup_patient(client, patient_id, dbname="patient_detail", collectionname="patient_metadata"):
+
+        db = client[dbname]
+        collection = db[collectionname]
+
+        query = {"patient_id": patient_id}
+        document = collection.find_one(query)
+
+        return document
 
     def getPatientData(client, patient_id, dbname="patient_detail", collectionname="patient_detail"):
 
