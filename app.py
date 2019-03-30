@@ -6,7 +6,7 @@ Created on Thu Feb 21 19:25:43 2019
 """
 
 #!flask/bin/python
-from flask import Flask, jsonify, session
+from flask import Flask, jsonify, session, g
 from flask import request
 from utils.mongodb_connection import mongoDB
 from utils.helper import Response
@@ -74,6 +74,12 @@ def sign_in():
         session['patient_gender'] = obj.get('patient_gender')
 
         session.permanent = True
+
+        g.patient_id = obj.get('patient_id')
+        g.patient_name = obj.get('patient_name')
+        g.patient_age = obj.get('patient_age')
+        g.patient_gender = obj.get('patient_gender')
+
         return jsonify("Login Successful! You may now interact with Virtual Nurse")
 
 @app.route('/sign_out', methods=['GET'])
@@ -138,7 +144,7 @@ def processRequest():
         response = '''Hello {}, I am your Virtual Nurse. 
                     I can help you with advice on first aid for your symptom or accident by asking you a few simple questions. 
                     Or I could call up your nearest doctor. Please let me know what is your primary symptom or accident
-                    '''.format(str(session['patient_name']))
+                    '''.format(str(g.patient_name))
 
     # Primary Symptom Follow-Up Flow:
     if intent == "SymptomDuration":
