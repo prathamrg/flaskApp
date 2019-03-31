@@ -21,7 +21,7 @@ def send_email(payload, patient_health):
     for key in sorted(payload.keys(), reverse=True):
         message = message + '\n' + str(key) + ': ' + str(payload[key]) + '\n'
 
-    text = "Hello Dr. James, the patient's history is as below: \n" + str(message)
+    text = "Hello Dr. Pratham, the patient's history is as below: \n" + str(message)
     # add in the message body
     msg.attach(MIMEText(text, 'plain'))
 
