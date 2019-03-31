@@ -23,6 +23,7 @@ import os
 app = Flask(__name__)
 #app.secret_key = '@^@vjvjgufr767t7796w221697643uknklucfgcvjbvfvbjhkgdcj57655744332'
 #app.secret_key = 'ceb212e796ee40d6b35c9cc171c34c3a'
+
 app.secret_key = '#$#$!#aknadjkandk@%$%21697643uknklucfgcvjbvfvbjhkgdcj5765as89080'
 
 
@@ -42,8 +43,8 @@ def before_request():
     if 'patient_gender' in session:
         g.patient_gender = session['patient_gender']
 
-@app.route('/get_session_test', methods=['GET'])
-def get_session_test():
+@app.route('/get_session', methods=['GET'])
+def get_session():
 
     res = {
         "patient_id" : session['patient_id'],
@@ -52,12 +53,29 @@ def get_session_test():
         "patient_gender": session['patient_gender']
     }
 
-    return jsonify([g.patient_id,
-    g.patient_name,
-    g.patient_age,
-    g.patient_gender])
+    # return jsonify([g.patient_id,
+    # g.patient_name,
+    # g.patient_age,
+    # g.patient_gender])
 
     return jsonify(res)
+
+
+@app.route('/get_hcp_detail', methods=['POST'])
+def get_hcp_detail():
+
+    req = request.get_json(silent=True, force=True)
+
+    latitude = req['latitude']
+    longitude = req['longitude']
+
+    hcp_name = "Pratham"
+    hcp_number = "8758085009"
+    hcp_email = "prathamgoel95@gmail.com"
+
+    res = {"hcp_name": hcp_name, "hcp_number": hcp_number, "hcp_email":hcp_email}
+    return jsonify(res)
+
 
 @app.route('/sign_up', methods=['POST'])
 def sign_up():
