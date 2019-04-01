@@ -45,7 +45,9 @@ accident_mapping = {
 
     "snake bite": 0.8,
     "burns": 0.7,
-    "nose bleed": 0.6
+    "cuts": 0.5,
+    "bruises": 0.4,
+    "accident injury": 0.9
 }
 
 part_mapping = {
