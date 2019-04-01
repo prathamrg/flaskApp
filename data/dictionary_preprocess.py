@@ -23,9 +23,7 @@ duration_mapping = {
 # symptom mappings
 symptom_mapping = {
     "stomach pain":     0.6,
-    "burns":	        0.7,
     "nose bleed":	    0.8,
-    "cuts":             0.5,
     "dizziness":    	0.4,
     "heat stroke":	    0.9,
     "pulled muscle":	0.2,
@@ -44,9 +42,9 @@ sleep_mapping = {
 accident_mapping = {
 
     "snake bite": 0.8,
-    "burns": 0.7,
-    "cuts": 0.5,
-    "bruises": 0.4,
+    "burn": 0.7,
+    "cut": 0.5,
+    "bruise": 0.4,
     "accident injury": 0.9
 }
 
