@@ -179,10 +179,14 @@ def send_email():
 
     # prepare symptom or accident feature set:
     if "accident" in latest:
-        data = [accident_severity,accident_duration,accident_part,accident]
+        #data = [accident_severity,accident_duration,accident_part,accident]
+        data = [accident, age, gender, accident_part, accident_severity, accident_duration]
+        pickle_file = 'finalized_model_accident.pkl'
         #add age, gender
     else:
-        data = [severity,duration,sleep,symptom]
+        #data = [severity,duration,sleep,symptom]
+        data = [symptom, age, gender, sleep, severity, duration]
+        pickle_file = 'finalized_model_symptom.pkl'
         #add age, gender
     print(data)
 
@@ -190,7 +194,8 @@ def send_email():
     #decision_tree_clf = pickle.load(open(os.path.dirname(os.path.realpath(__file__))+'\\models\\decision_tree_model.sav','rb'))
 
     #heroku deployment
-    decision_tree_clf = pickle.load(open(os.path.dirname(os.path.realpath(__file__))+'/models/decision_tree_model.sav','rb'))
+    #decision_tree_clf = pickle.load(open(os.path.dirname(os.path.realpath(__file__))+'/models/decision_tree_model.sav','rb'))
+    decision_tree_clf = pickle.load(open(os.path.dirname(os.path.realpath(__file__))+'/models/'+pickle_file,'rb'))
     patient_health = ML.predict(decision_tree_clf,data)
     print(patient_health)
     emails.send_email(payload=patient_detail, patient_health=patient_health)
