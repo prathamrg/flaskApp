@@ -296,7 +296,7 @@ def processRequest():
         response = "Thanks for providing the information. I suggest you to take the following course of preliminary action: {}. Do you want me to save your details?".format(first_aid)
 
 
-    elif intent == "ConfirmSendAccidentDetail":
+    elif intent == "ConfirmSendAccidentDetails":
         outputContexts = req.get("queryResult").get("outputContexts")
         for outputContext in outputContexts:
             if "accidentsymptom-followup" in outputContext.get("name"):
