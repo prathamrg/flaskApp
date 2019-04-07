@@ -72,9 +72,11 @@ def get_latest_detail():
     mongoDB.closeConnection(client)
 
     # predict overall condition based on latest survey
-
-    latest = patient_detail.get(sorted(patient_detail.keys(), reverse=True)[2])
-    return jsonify(latest)
+    if patient_detail is not None:
+        latest = patient_detail.get(sorted(patient_detail.keys(), reverse=True)[2])
+        return jsonify(latest)
+    else:
+        return jsonify("No saved records found")
 
 @app.route('/get_hcp_detail', methods=['POST'])
 def get_hcp_detail():
