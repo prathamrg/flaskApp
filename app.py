@@ -60,6 +60,21 @@ def get_session():
 
     return jsonify(res)
 
+@app.route('/get_latest_detail', methods=['GET'])
+def get_latest_detail():
+    req = request.get_json(silent=True, force=True)
+
+    with open(os.path.dirname(os.path.realpath(__file__)) + '/temp/temp.json', 'r') as tmpfile:
+        patient_metadata = json.load(tmpfile)
+
+    client = mongoDB.makeConnection()
+    patient_detail = mongoDB.getPatientData(client, patient_id=patient_metadata['patient_id'])
+    mongoDB.closeConnection(client)
+
+    # predict overall condition based on latest survey
+
+    latest = patient_detail.get(sorted(patient_detail.keys(), reverse=True)[2])
+    return jsonify(latest)
 
 @app.route('/get_hcp_detail', methods=['POST'])
 def get_hcp_detail():
