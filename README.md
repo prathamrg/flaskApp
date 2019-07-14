@@ -22,7 +22,7 @@ Rationale behind using MongoDB as the data store is to make it horizontally scal
 
 Additionally, an interactive, real-time dashboard is buit on the app-user data collected from this.
 Link to dashboard: https://vndashboard.herokuapp.com/
-Github Link: 
+Github Link: https://github.com/prathamrg/vn_dashboard
 
 This dashboard is useful for rural health officers to derive interesting insights about the app-users (people of his rural constituency) like:
 1. Which is the most common symptom ocurring in children aged 1 to 10 
