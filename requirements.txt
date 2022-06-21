@@ -5,7 +5,7 @@ Flask-Compress==1.4.0
 Flask-Cors==3.0.2
 Flask-RESTful==0.3.6
 Flask-SocketIO==2.9.2
-numpy==1.14.3
+numpy==1.22.0
 scikit-learn==0.18.1
 scipy==0.19.0
 gunicorn==19.9.0
